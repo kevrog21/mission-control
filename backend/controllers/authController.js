@@ -7,7 +7,7 @@ dotenv.config()
 
 export const registerUser = async (req, res, next) => {
     try {
-        const { email, password, name } = req.body
+        const { email, password, username } = req.body
 
         if (!email || !password) {
             return res.status(400).json({ message: "Email and password required" })
@@ -24,13 +24,22 @@ export const registerUser = async (req, res, next) => {
         const user = await User.create({
             email,
             password: passwordHash,
-            name
+            username
         })
 
+        const token = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        )
+
         res.status(201).json({
-            id: user._id,
-            email: user.email,
-            name: user.name
+            token,
+            use: {
+                id: user._id,
+                email: user.email,
+                username: user.username
+            },
         })
     } catch (err) {
         next(err)
@@ -58,7 +67,7 @@ export const loginUser = async (req, res, next) => {
         const token = jwt.sign(
             { userId: user._id },
             process.env.JWT_SECRET,
-            { expiresIn: "7d" }
+            { expiresIn: "1h" }
         )
 
         res.json({
@@ -66,36 +75,10 @@ export const loginUser = async (req, res, next) => {
             user: {
                 id: user._id,
                 email: user.email,
-                name: user.name
+                username: user.username
             }
         })
     } catch (err) {
         next(err)
-    }
-}
-
-export const refreshAccessToken = (req, res, next) => {
-    const { refreshToken } = req.body
-
-    if (!refreshToken) {
-        return res.status(401).json({ message: "Refresh token required" })
-    }
-
-    try {
-        const decoded = jwt.verify(
-            refreshToken,
-            process.env.JWT_REFRESH_SECRET
-        )
-
-        const newAccessToken = jwt.sign(
-            { userID: decoded.userId},
-            process.env.JWT_SECRET,
-            { expiresIn: "15m" }
-        )
-
-        res.json({ token: newAccessToken })
-
-    } catch (err) {
-        return res.status(401).json({ message: "Invalid refresh token" })
     }
 }
