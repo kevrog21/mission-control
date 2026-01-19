@@ -1,6 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
+import cors from 'cors'
 
 import { protect } from './middleware/auth.js'
 import authRouter from './routes/auth.js'
@@ -10,6 +11,16 @@ dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 5000;
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://gtd.mydomain.com",
+    ],
+    credentials: true,
+  })
+)
 
 app.use(express.json())
 
@@ -26,6 +37,13 @@ app.use('/api/users', usersRouter)
 app.get("/api/protected-test", protect, (req, res) => {
     res.json({
         message: "You made it",
+        userId: req.userId
+    })
+})
+
+app.get("/api/current-user", protect, (req, res) => {
+    res.json({
+        message: "pretend this is the current user data here",
         userId: req.userId
     })
 })
