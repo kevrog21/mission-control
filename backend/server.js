@@ -3,7 +3,6 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cors from 'cors'
 
-import { protect } from './middleware/auth.js'
 import authRouter from './routes/auth.js'
 import usersRouter from './routes/users.js'
 
@@ -33,20 +32,6 @@ if (process.env.NODE_ENV !== "production") {
 
 app.use("/api/auth", authRouter)
 app.use('/api/users', usersRouter)
-
-app.get("/api/protected-test", protect, (req, res) => {
-    res.json({
-        message: "You made it",
-        userId: req.userId
-    })
-})
-
-app.get("/api/current-user", protect, (req, res) => {
-    res.json({
-        message: "pretend this is the current user data here",
-        userId: req.userId
-    })
-})
 
 app.get("/api/health", (req, res) => {
     res.json({
