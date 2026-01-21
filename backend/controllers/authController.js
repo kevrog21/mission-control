@@ -7,7 +7,7 @@ dotenv.config()
 
 export const registerUser = async (req, res, next) => {
     try {
-        const { email, password, username } = req.body
+        const { email, password } = req.body
 
         if (!email || !password) {
             return res.status(400).json({ message: "Email and password required" })
@@ -15,7 +15,7 @@ export const registerUser = async (req, res, next) => {
 
         const existingUser = await User.findOne({ email })
             if (existingUser) {
-                return res.status(409).json({ message: "User already exists" })
+                return res.status(409).json({ message: "An account with that email already exists" })
         }
 
         const saltRounds = 12
@@ -24,7 +24,6 @@ export const registerUser = async (req, res, next) => {
         const user = await User.create({
             email,
             password: passwordHash,
-            username
         })
 
         const token = jwt.sign(
@@ -35,10 +34,9 @@ export const registerUser = async (req, res, next) => {
 
         res.status(201).json({
             token,
-            use: {
+            user: {
                 id: user._id,
-                email: user.email,
-                username: user.username
+                email: user.email
             },
         })
     } catch (err) {
@@ -74,12 +72,11 @@ export const loginUser = async (req, res, next) => {
             { expiresIn: "1h" }
         )
 
-        res.json({
+        res.status(201).json({
             token,
             user: {
                 id: user._id,
-                email: user.email,
-                username: user.username
+                email: user.email
             }
         })
     } catch (err) {

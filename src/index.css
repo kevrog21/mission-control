@@ -27,31 +27,37 @@ code {
   overflow: hidden;
 }
 
-.login-form {
+.login-form,
+.sign-up-form {
   display: flex;
   flex-direction: column;
   margin: 1em 0 2em 0;
 }
 
-.login-input-wrapper {
+.login-input-wrapper,
+.signup-input-wrapper {
   margin: 1.5em auto 0 auto;
 }
 
-.login-input-wrapper input {
+.login-input-wrapper input,
+.signup-input-wrapper input {
   padding: .5em .25em;
 }
 
-.login-input-wrapper input::placeholder {
+.login-input-wrapper input::placeholder,
+.signup-input-wrapper input::placeholder {
   color: rgb(167, 167, 167);
 }
 
-.login-form-label {
+.login-form-label,
+.signup-form-label {
   font-size: .75em;
   margin: 0 0 .5em 0;
   display: block;
 }
 
-.login-result-message {
+.login-result-message,
+.signup-result-message {
   min-height: 1.5rem;
   font-size: .9rem;
   color: rgb(222, 7, 7);
@@ -59,15 +65,18 @@ code {
   visibility: hidden;
 }
 
-.login-result-message.visible {
+.login-result-message.visible,
+.signup-result-message.visible {
   visibility: visible;
 }
 
-.login-result-message.loading {
+.login-result-message.loading,
+.signup-result-message.loading {
   color: rgb(27, 27, 27);
 }
 
-.login-submit-btn {
+.login-submit-btn,
+.signup-submit-btn {
   margin: 1em auto;
 }
 
@@ -82,3 +91,8 @@ code {
   text-align: center;
 }
 
+.logout-btn-container {
+  display: flex;
+  justify-content: end;
+  margin: 0 0 2em 0;
+}

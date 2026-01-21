@@ -29,6 +29,11 @@ export const AuthProvider = ({ children }) => {
 
     }, [])
 
+    const signUpAuth = (userData) => {
+        localStorage.setItem("token", userData.token)
+        setUser(userData.user)
+    }
+
     const loginAuth = (userData) => {
         localStorage.setItem("token", userData.token)
         setUser(userData.user)

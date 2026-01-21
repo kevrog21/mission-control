@@ -15,17 +15,20 @@ const userSchema = new mongoose.Schema(
             required: true
         },
 
-        username: {
-            type: String,
-            trim: true,
-        },
-
         isVerified: {
             type: Boolean,
             default: false
         },
 
-        isActive: {
+        emailVerificationToken: {
+            type: String,
+        },
+
+        emailVerificationExpires: {
+            type: Date,
+        },
+
+        accountIsActive: {
             type: Boolean,
             default: true
         }

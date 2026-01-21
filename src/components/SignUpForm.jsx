@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function LoginForm({ onSubmit }) {
+export default function SignUpForm({ onSubmit }) {
 
     const [error, setError] = useState(null) 
     const [loading, setLoading] = useState(false)
@@ -21,51 +21,52 @@ export default function LoginForm({ onSubmit }) {
         try {
             await onSubmit(payload)
         } catch (err) {
-            setError("Invalid credentials")
+            setError(err.message)
         } finally {
             setLoading(false)
         }
     }
 
     return (
-        <form className='login-form' onSubmit={handleSubmit}>
-            <div className='login-input-wrapper'>
-                <label htmlFor="login-email" className='login-form-label'>email:</label>
+        <form className='sign-up-form' onSubmit={handleSubmit}>
+            <div className='signup-input-wrapper'>
+                <label htmlFor="signup-email" className='signup-form-label'>email:</label>
                 <input 
                     type="email" 
                     name="email"
                     autoComplete="email"
-                    id="login-email" 
+                    id="signup-email" 
                     placeholder={'email@example.com'} 
                     required
                 />
             </div>
-            <div className={'login-input-wrapper'}>
-                <label htmlFor="login-password" className='login-form-label }'>password:</label>
+
+            <div className='signup-input-wrapper'>
+                <label htmlFor="signup-password" className='signup-form-label'>password:</label>
                 <input 
                     type="password" 
                     name="password"
-                    autoComplete="current-password"
-                    id="login-password"
+                    autoComplete="cureent-password"
+                    id="signup-password" 
                     required
                 />
             </div>
-            
-            <div className={'login-input-wrapper company-wink-wink'}>
+
+            <div className={'signup-input-wrapper company-wink-wink'}>
                 <input 
-                    type="text" 
+                    type="text"
                     name="company"
                     autoComplete="off"
                     tabIndex="-1"
                 />
             </div>
 
-            <div className={`login-result-message ${error || loading ? 'visible' : ""} ${loading ? 'loading' : ""}`}>
+            <div className={`signup-result-message ${error || loading ? 'visible' : ""} ${loading ? 'loading' : ""}`}>
                 {loading ? 'loading...' : error}
             </div>
 
-            <button className='login-submit-btn' type="submit" disabled={loading}>Log In</button>
-
+            <button className='signup-submit-btn' type="submit" disabled={loading}>Sign Up</button>
         </form>
     )
+
 }

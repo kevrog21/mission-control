@@ -1,6 +1,9 @@
 import { apiFetch } from "./api"
 
-export function register(userInput) {
+export function registerService(userInput) {
+    console.log("running the register auth service (expect this third")
+    console.log("register post body here:", userInput)
+    
     return apiFetch(`/api/auth/register`, {
         method: "POST",
         body: JSON.stringify(userInput)

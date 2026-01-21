@@ -5,8 +5,8 @@ export default function LogOut() {
     const { logout } = useAuth()
 
     return (
-        <div>
-            <button onClick={logout}>Log Out</button>
+        <div className="logout-btn-container">
+            <button className='logout-button' onClick={logout}>Log Out</button>
         </div>
     )
 }
