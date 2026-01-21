@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema(
             trim: true,
         },
 
+        isVerified: {
+            type: Boolean,
+            default: false
+        },
+
         isActive: {
             type: Boolean,
             default: true

@@ -6,21 +6,23 @@ import LoginForm from "../components/LoginForm"
 
 export default function Login() {
     const navigate = useNavigate()
-    const { login } = useAuth()
+    const { loginAuth } = useAuth()
 
-    const handleLogin = async (email, password) => {
+    const handleLogin = async ({email, password, company}) => {
         console.log("running the handleLogin function (expect this second)")
+        if (company) {
+            throw new Error("Bot detected")
+        }
 
         const userData = await loginService({email, password})
         console.log("here is the userData (what is returned fom login function)", userData)
-        login(userData)
+        loginAuth(userData)
         navigate("/dashboard")
     }
 
-
     return (
         <div className='page'>
-            <p className="test">Log in Page!</p>
+            <p className="page-title">Log in Page</p>
             <LoginForm onSubmit={handleLogin} />
         </div>
     )

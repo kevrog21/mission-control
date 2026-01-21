@@ -18,6 +18,59 @@ code {
   font-size: 1.25em;
 }
 
+.company-wink-wink {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0 2em 0;
+}
+
+.login-input-wrapper {
+  margin: 1.5em auto 0 auto;
+}
+
+.login-input-wrapper input {
+  padding: .5em .25em;
+}
+
+.login-input-wrapper input::placeholder {
+  color: rgb(167, 167, 167);
+}
+
+.login-form-label {
+  font-size: .75em;
+  margin: 0 0 .5em 0;
+  display: block;
+}
+
+.login-result-message {
+  min-height: 1.5rem;
+  font-size: .9rem;
+  color: rgb(222, 7, 7);
+  text-align: center;
+  visibility: hidden;
+}
+
+.login-result-message.visible {
+  visibility: visible;
+}
+
+.login-result-message.loading {
+  color: rgb(27, 27, 27);
+}
+
+.login-submit-btn {
+  margin: 1em auto;
+}
+
 .page {
   margin: 100px;
   display: flex;
@@ -25,6 +78,7 @@ code {
   justify-content: center;
 }
 
-.test {
+.page-title {
   text-align: center;
 }
+

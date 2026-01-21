@@ -49,6 +49,10 @@ export const registerUser = async (req, res, next) => {
 export const loginUser = async (req, res, next) => {
     try {
         const { email, password } = req.body
+
+        if (req.body.company) {
+            return res.status(400).json({ message: "Invalid submission"})
+        }
         
         if ( !email || !password) {
             return res.status(400).json({ message: "Email and password required" })
