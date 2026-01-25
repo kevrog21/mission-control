@@ -1,0 +1,17 @@
+
+
+
+.company-wink-wink {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.logout-btn-container {
+  display: flex;
+  justify-content: end;
+  margin: 0 0 2em 0;
+}

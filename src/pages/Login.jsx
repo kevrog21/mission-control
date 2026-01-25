@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext"
 import { loginService } from "../services/authService"
 
 import LoginForm from "../components/LoginForm"
+import '../styles/pageStyles/loginSignUp.css'
 
 export default function Login() {
     const navigate = useNavigate()
