@@ -8,4 +8,5 @@ router.post("/register", registerUser)
 router.post("/login", loginUser)
 router.get("/current-user", protect, getCurrentUser)
 
+
 export default router

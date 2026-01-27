@@ -3,6 +3,9 @@ import jwt from "jsonwebtoken"
 import User from "../models/Users.model.js"
 import dotenv from "dotenv"
 
+import DailyReviewQuestion from "../models/DailyReviewQuestions.model.js"
+import { defaultDailyReviewQuestions } from "../seed/defaultDailyReviewQuestions.js"
+
 dotenv.config()
 
 export const registerUser = async (req, res, next) => {
@@ -25,6 +28,13 @@ export const registerUser = async (req, res, next) => {
             email,
             password: passwordHash,
         })
+
+        const questionsToInsert = defaultDailyReviewQuestions.map(q => ({
+            ...q,
+            userId: user._id,
+        }))
+
+        await DailyReviewQuestion.insertMany(questionsToInsert)
 
         const token = jwt.sign(
             { userId: user._id },

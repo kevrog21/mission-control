@@ -4,7 +4,8 @@ import dotenv from "dotenv"
 import cors from 'cors'
 
 import authRouter from './routes/auth.js'
-import usersRouter from './routes/users.js'
+import dailyReviewQuestionsRouter from './routes/dailyReviewQuestionRoutes.js'
+// import usersRouter from './routes/users.js'
 import { authLimiter } from './middleware/rateLimiter.js'
 
 dotenv.config()
@@ -32,7 +33,8 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 app.use("/api/auth", authLimiter, authRouter)
-app.use('/api/users', usersRouter)
+app.use("/api/auth", dailyReviewQuestionsRouter)
+// app.use('/api/users', usersRouter)
 
 app.get("/api/health", (req, res) => {
     res.json({

@@ -52,10 +52,16 @@ select {
   border-radius: var(--radius-sm);
 }
 
+.welcome-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .welcome-message {
-  text-align: center;
-  margin: 40vh;
   font-size: 1.25em;
+  height: 30vh;
 }
 
 .page {
