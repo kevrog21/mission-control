@@ -3,8 +3,9 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cors from 'cors'
 
-import authRouter from './routes/auth.js'
-import dailyReviewQuestionsRouter from './routes/dailyReviewQuestionRoutes.js'
+import authRouter from './routes/auth.routes.js'
+import usersRouter from './routes/users.routes.js'
+import dailyReviewQuestionsRouter from './routes/dailyReview.routes.js'
 // import usersRouter from './routes/users.js'
 import { authLimiter } from './middleware/rateLimiter.js'
 
@@ -33,7 +34,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 app.use("/api/auth", authLimiter, authRouter)
-app.use("/api/auth", dailyReviewQuestionsRouter)
+app.use("/api", usersRouter, dailyReviewQuestionsRouter)
 // app.use('/api/users', usersRouter)
 
 app.get("/api/health", (req, res) => {

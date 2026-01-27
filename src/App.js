@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage"
 import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import UserMainDashboard from "./pages/UserMainDashboard"
+import DailyReview from "./pages/DailyReview"
 
 import ProtectedRoute from "./routes/ProtectedRoutes"
 
@@ -21,6 +22,7 @@ function App() {
 
       <Route element={<ProtectedRoute />}>
         <Route path='/dashboard' element={<UserMainDashboard />}/>
+        <Route path='/daily-review' element={<DailyReview />}/>
       </Route>
     </Routes>
   );

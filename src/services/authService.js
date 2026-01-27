@@ -20,5 +20,5 @@ export function loginService(credentials) {
   }
 
   export function getCurrentUser() {
-    return apiFetch(`/api/auth/current-user`)
+    return apiFetch(`/api/current-user`)
   }

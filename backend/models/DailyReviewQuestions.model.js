@@ -25,6 +25,11 @@ const dailyReviewQuestionSchema = new mongoose.Schema(
       required: true,
     },
 
+    allowCount: {
+      type: Boolean,
+      default: false,
+    },
+
     active: {
       type: Boolean,
       default: true,

@@ -15,24 +15,20 @@ export const AuthProvider = ({ children }) => {
             return
         }
 
-        getCurrentUser()
-            .then((userData) => {
-                setUser(userData)
-            })
-            .catch(() => {
-                localStorage.removeItem("token")
-                setUser(null)
-            })
-                .finally(() => {
-                setAuthLoading(false)
-            })
-
+        if (token && !user) {
+            getCurrentUser()
+                .then((userData) => {
+                    setUser(userData)
+                })
+                .catch(() => {
+                    localStorage.removeItem("token")
+                    setUser(null)
+                })
+                    .finally(() => {
+                    setAuthLoading(false)
+                })
+        }
     }, [])
-
-    const signUpAuth = (userData) => {
-        localStorage.setItem("token", userData.token)
-        setUser(userData.user)
-    }
 
     const loginAuth = (userData) => {
         localStorage.setItem("token", userData.token)

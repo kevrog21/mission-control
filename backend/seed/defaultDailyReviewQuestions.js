@@ -17,6 +17,7 @@ export const defaultDailyReviewQuestions = [
         label: "Flossed today?",
         type: "boolean",
         order: 3,
+
     },
     {
         key: "learn_something",
@@ -44,4 +45,5 @@ export const defaultDailyReviewQuestions = [
 //     label: "Drink alcohol today",
 //     type: "boolean",
 //     order: 4,
+//     allowCount: true
 // },
