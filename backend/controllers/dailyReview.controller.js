@@ -15,8 +15,35 @@ export async function getUserDailyReviewQuestions(req, res) {
     }
 }
 
+export async function getDailyReviewResponseForDate(req, res) {
+    // const userTimezone = req.userSettings.timezone
+    console.log("running the get by date controller now")
+
+    const userTimezone = "America/New_York"
+
+    const { date } = req.query
+    const userId = req.userId
+
+    console.log("date variable here: ", date)
+
+    let targetDate
+
+    if (date === "today") {
+        targetDate = DateTime.now().setZone(userTimezone).startOf("day").toJSDate()
+    } else {
+        targetDate = DateTime.now().startOf("day").toJSDate()
+    }
+
+    const review = await DailyReviewResponse.findOne({
+        userId,
+        date: targetDate
+    })
+
+    res.json(review)
+}
+
 export async function postDailyReviewResponse(req, res) {
-   
+    console.log("running post daily review controller 1")
     // const userTimezone = req.userSettings.timezone
     const userTimezone = "America/New_York"
     const now = DateTime.now().setZone(userTimezone)
@@ -26,13 +53,13 @@ export async function postDailyReviewResponse(req, res) {
 
     const today = now.startOf("day")
 
-    if (dailyReviewDate.equals(today) && now.hour < 12) {
-        return res.status(400).json({
-        message: "Daily review can only be submitted after noon",
-        })
-    }
+    // if (dailyReviewDate.equals(today) && now.hour < 12) {
+    //     return res.status(400).json({
+    //     message: "Daily review can only be submitted after noon",
+    //     })
+    // }
 
-    console.log(req.userId)
+    // console.log(req.userId)
     console.log("post daily review response is running", req.body)
 
     try {

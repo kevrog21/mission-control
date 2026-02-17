@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 
-import LogOut from '../components/LogOut'
+import LogOut from './Auth/LogOut'
 
 export default function UserMainDashboard( setUser ) {
     return (

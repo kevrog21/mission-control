@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom"
-import { useAuth } from "../context/AuthContext"
-import { registerService } from '../services/authService'
+import { useAuth } from "../../context/AuthContext"
+import { registerService } from '../../services/auth.service'
 
-import SignUpForm from '../components/SignUpForm'
-import '../styles/pageStyles/loginSignUp.css'
+import SignUpForm from './SignUpForm'
+import '../../styles/pageStyles/loginSignUp.css'
 
 export default function SignUp() {
     const navigate = useNavigate()

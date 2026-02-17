@@ -1,11 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom"
 import { useAuth } from "./context/AuthContext"
 
-import LandingPage from "./pages/LandingPage"
-import Login from "./pages/Login"
-import SignUp from "./pages/SignUp"
-import UserMainDashboard from "./pages/UserMainDashboard"
-import DailyReview from "./pages/DailyReview"
+import LandingPage from "./components/LandingPage"
+import Login from "./components/Auth/Login"
+import SignUp from "./components/Auth/SignUp"
+import UserMainDashboard from "./components/UserMainDashboard"
+import DailyReviewHub from "./components/DailyReview/DailyReviewHub"
+import DailyReviewForm from "./components/DailyReview/DailyReviewForm"
+
 
 import ProtectedRoute from "./routes/ProtectedRoutes"
 
@@ -22,10 +24,12 @@ function App() {
 
       <Route element={<ProtectedRoute />}>
         <Route path='/dashboard' element={<UserMainDashboard />}/>
-        <Route path='/daily-review' element={<DailyReview />}/>
+        <Route path='/daily-review' element={<DailyReviewHub />}/>
+        <Route path='/daily-review/new' element={<DailyReviewForm />}/>
+        <Route path='/daily-review/:id' element={<DailyReviewForm />}/>
       </Route>
     </Routes>
-  );
+  )
 }
 
 export default App;

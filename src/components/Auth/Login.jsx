@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom"
-import { useAuth } from "../context/AuthContext"
-import { loginService } from "../services/authService"
+import { useAuth } from "../../context/AuthContext"
+import { loginService } from "../../services/auth.service"
 
-import LoginForm from "../components/LoginForm"
-import '../styles/pageStyles/loginSignUp.css'
+import LoginForm from "./LoginForm"
+import '../../styles/pageStyles/loginSignUp.css'
 
 export default function Login() {
     const navigate = useNavigate()

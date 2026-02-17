@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { getCurrentUser } from '../services/authService'
+import { getCurrentUserService } from '../services/users.service'
 
 const AuthContext = createContext()
 
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         if (token && !user) {
-            getCurrentUser()
+            getCurrentUserService()
                 .then((userData) => {
                     setUser(userData)
                 })

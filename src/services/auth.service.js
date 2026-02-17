@@ -17,8 +17,4 @@ export function loginService(credentials) {
         method: "POST",
         body: JSON.stringify(credentials)
     })
-  }
-
-  export function getCurrentUser() {
-    return apiFetch(`/api/current-user`)
-  }
+}
