@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { getDailyReviewResponseForDate } from '../../services/dailyReview.service'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+
+import PreviousReviewCard from "./PreviousReviewCard"
 
 export default function DailyReviewHub() {
     const [todayReview, setTodayReview] = useState(null)
@@ -37,7 +39,8 @@ export default function DailyReviewHub() {
     return (
         <div className='container-center-content'>
             <div>
-                <div>here are the cards for previous reviews</div>
+                <Link to="/daily-review/customize">Customize Daily Review</Link>
+                <PreviousReviewCard />
                 <button onClick={handleTodayCardClick}>{todayReview ? "Edit today's review" : "Start today's review"}</button>
             </div>
         </div>

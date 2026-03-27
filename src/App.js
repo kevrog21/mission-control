@@ -7,6 +7,7 @@ import SignUp from "./components/Auth/SignUp"
 import UserMainDashboard from "./components/UserMainDashboard"
 import DailyReviewHub from "./components/DailyReview/DailyReviewHub"
 import DailyReviewForm from "./components/DailyReview/DailyReviewForm"
+import DailyReviewQuestions from "./components/DailyReview/DailyReviewQuestions"
 
 
 import ProtectedRoute from "./routes/ProtectedRoutes"
@@ -27,6 +28,8 @@ function App() {
         <Route path='/daily-review' element={<DailyReviewHub />}/>
         <Route path='/daily-review/new' element={<DailyReviewForm />}/>
         <Route path='/daily-review/:id' element={<DailyReviewForm />}/>
+        <Route path='/daily-review/customize' element={<DailyReviewQuestions />}/>
+
       </Route>
     </Routes>
   )

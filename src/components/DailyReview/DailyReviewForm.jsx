@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { getDailyReviewQuestionsService, postDailyReviewResponse } from '../../services/dailyReview.service'
+import { getDailyReviewQuestionsService, postDailyReviewResponse, getDailyReviewByIdService, updateExistingDailyReview } from '../../services/dailyReview.service'
 
 
 export default function DailyReviewForm() {
@@ -48,6 +48,27 @@ export default function DailyReviewForm() {
         loadQuestions()
     }, [])
 
+    useEffect(() => {
+        if (!isEditMode) return
+
+        async function loadExistingReview() {
+            try {
+                const data = await getDailyReviewByIdService(id)
+
+                if (!data || !data.responses) {
+                    console.warn("Review not found or missing responses: ", data)
+                    return
+                }
+
+                setResponses(data.responses)
+            } catch (err) {
+                console.error("Failed to load review:", err)
+            }
+        }
+
+        loadExistingReview()
+    }, [id, isEditMode])
+
     function handleChange(key, value) {
         setResponses((prev) => ({
             ...prev,
@@ -58,18 +79,22 @@ export default function DailyReviewForm() {
     async function handleSubmit(e) {
         e.preventDefault()
 
-        const body = {
-            date: new Date().toISOString().slice(0, 10),
-            responses: { ...responses }
-        }
+        const today = new Date().toISOString().slice(0, 10)
 
-        console.log('Submitting Responses: ', body)
+        const body = isEditMode
+            ? { responses: { ...responses } }
+            : { date: today, responses: { ...responses } }
 
         try {
-            await postDailyReviewResponse(body)
+            if (isEditMode) {
+                await updateExistingDailyReview(id, body)
+            } else {
+                await postDailyReviewResponse(body)
+            }
+
             navigate("/daily-review")
         } catch (err) {
-            console.error("Failed to submit review", err)
+            console.error("Failed to submit review ", err)
         }
     }
 
@@ -120,7 +145,7 @@ export default function DailyReviewForm() {
                     {q.type === "textarea" && (
                         <textarea
                             id={q.key}
-                            checked={value || ""}
+                            value={value || ""}
                             onChange={(e) => handleChange(q.key, e.target.value)}
                             rows={6}
                             className='form-textarea'
@@ -133,13 +158,14 @@ export default function DailyReviewForm() {
         })
     }, [questions, responses])
     
-    if (loading) return <div className='container-center-content'>Loading...</div>;
+    if (loading && responses.length === 0) return <div className='container-center-content'>Loading...</div>
 
     return (
         <div>
             <div className='container-center-content'>
                 <form onSubmit={handleSubmit}>
                     <h2>{isEditMode ? "Edit Daily Review" : "New Daily Review"}</h2>
+                    
 
                     {renderedQuestions}
 
