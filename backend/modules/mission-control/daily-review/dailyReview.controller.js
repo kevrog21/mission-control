@@ -1,5 +1,5 @@
-import DailyReviewQuestion from "../models/DailyReviewQuestions.model.js"
-import DailyReviewResponse from "../models/DailyReviewResponses.model.js"
+import DailyReviewQuestion from "./DailyReviewQuestions.model.js"
+import DailyReviewResponse from "./DailyReviewResponses.model.js"
 import { DateTime } from "luxon"
 
 export async function getUserDailyReviewQuestions(req, res) {

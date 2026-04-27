@@ -3,9 +3,9 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cors from 'cors'
 
-import authRouter from './routes/auth.routes.js'
-import usersRouter from './routes/users.routes.js'
-import dailyReviewRouter from './routes/dailyReview.routes.js'
+import authRouter from './modules/auth/auth.routes.js'
+import usersRouter from './modules/users/users.routes.js'
+import dailyReviewRouter from './modules/mission-control/daily-review/dailyReview.routes.js'
 import { authLimiter } from './middleware/rateLimiter.js'
 
 dotenv.config()

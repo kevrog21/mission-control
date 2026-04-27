@@ -1,6 +1,6 @@
 import express from "express"
-import { getUserDailyReviewQuestions, createDailyReviewQuestion, getDailyReviewResponseForDate, postDailyReviewResponse, getExistingDailyReview, updateExistingDailyReview, getRecentDailyReviews, updateUserDailyReviewQuestions } from "../controllers/dailyReview.controller.js"
-import { protect } from "../middleware/auth.js"
+import { getUserDailyReviewQuestions, createDailyReviewQuestion, getDailyReviewResponseForDate, postDailyReviewResponse, getExistingDailyReview, updateExistingDailyReview, getRecentDailyReviews, updateUserDailyReviewQuestions } from "./dailyReview.controller.js"
+import { protect } from "../../../middleware/protect.js"
 
 const router = express.Router()
 

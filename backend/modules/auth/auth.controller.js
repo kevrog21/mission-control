@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import User from "../models/Users.model.js"
+import User from "../users/Users.model.js"
 import dotenv from "dotenv"
 
-import DailyReviewQuestion from "../models/DailyReviewQuestions.model.js"
-import { defaultDailyReviewQuestions } from "../seed/defaultDailyReviewQuestions.js"
+import DailyReviewQuestion from "../mission-control/daily-review/DailyReviewQuestions.model.js"
+import { defaultDailyReviewQuestions } from "../mission-control/daily-review/DailyReviewQuestions.seed.js"
 
 dotenv.config()
 
