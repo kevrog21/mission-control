@@ -37,4 +37,4 @@ dailyReviewResponsesSchema.index(
   { userId: 1, completedAt: -1 }
 )
 
-export default mongoose.model("DailyReviewResponse", dailyReviewResponsesSchema)
+export default mongoose.model("mc_DailyReviewResponse", dailyReviewResponsesSchema)

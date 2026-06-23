@@ -6,6 +6,8 @@ import cors from 'cors'
 import authRouter from './modules/auth/auth.routes.js'
 import usersRouter from './modules/users/users.routes.js'
 import dailyReviewRouter from './modules/mission-control/daily-review/dailyReview.routes.js'
+
+import fitnessUserProfilesRouter from './modules/fitness/FitnessUserProfiles.routes.js'
 import { authLimiter } from './middleware/rateLimiter.js'
 
 dotenv.config()
@@ -17,7 +19,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://gtd.mydomain.com",
+      "https://fitness.mymissioncontrol.com",
     ],
     credentials: true,
   })
@@ -35,6 +37,7 @@ if (process.env.NODE_ENV !== "production") {
 app.use("/api/auth", authLimiter, authRouter)
 app.use('/api', usersRouter)
 app.use("/api/daily-review", dailyReviewRouter)
+app.use("/api/fitness-user-profiles", fitnessUserProfilesRouter)
 
 app.get("/api/health", (req, res) => {
     res.json({

@@ -9,14 +9,14 @@ export default function SignUp() {
     const navigate = useNavigate()
     const { loginAuth } = useAuth()
 
-    const handleSignUp = async ({email, password, company}) => {
+    const handleSignUp = async ({email, password, company, app}) => {
         try {
             console.log("running the handleSignUp function (expect this second)")
             if (company) {
                 throw new Error("Bot detected")
             }
     
-            const userData = await registerService({email, password})
+            const userData = await registerService({email, password, app})
             console.log("here is the userData (what is returned fom handleSignup function)", userData)
             loginAuth(userData)
             navigate("/dashboard")

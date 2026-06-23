@@ -15,6 +15,7 @@ export default function SignUpForm({ onSubmit }) {
             email: formData.get("email")?.trim(),
             password: formData.get("password"),
             company: formData.get("company"),
+            app: "missionControl"
         }
 
         console.log("running the handleSubmit function (expect this first)")
@@ -46,7 +47,7 @@ export default function SignUpForm({ onSubmit }) {
                 <input 
                     type="password" 
                     name="password"
-                    autoComplete="cureent-password"
+                    autoComplete="new-password"
                     id="signup-password" 
                     required
                 />

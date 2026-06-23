@@ -1,16 +1,18 @@
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import User from "../users/Users.model.js"
 import dotenv from "dotenv"
 
+import User from "../users/Users.model.js"
+import UserSettings from "../users/usersettings.model.js"
 import DailyReviewQuestion from "../mission-control/daily-review/DailyReviewQuestions.model.js"
+import fitnessUserProfile from "../fitness/FitnessUserProfiles.model.js"
 import { defaultDailyReviewQuestions } from "../mission-control/daily-review/DailyReviewQuestions.seed.js"
 
 dotenv.config()
 
 export const registerUser = async (req, res, next) => {
     try {
-        const { email, password } = req.body
+        const { email, password, app } = req.body
 
         if (!email || !password) {
             return res.status(400).json({ message: "Email and password required" })
@@ -29,12 +31,57 @@ export const registerUser = async (req, res, next) => {
             password: passwordHash,
         })
 
-        const questionsToInsert = defaultDailyReviewQuestions.map(q => ({
-            ...q,
-            userId: user._id,
-        }))
+        const appSettings = {
+            missionControl: {
+                enabled: false,
+                connectedAt: null,
+            },
 
-        await DailyReviewQuestion.insertMany(questionsToInsert)
+            fitness: {
+                enabled: false,
+                connectedAt: null,
+            },
+
+            recipe: {
+                enabled: false,
+                connectedAt: null,
+            },
+        }
+
+        if (appSettings[app]) {
+            appSettings[app] = {
+                enabled: true,
+                connectedAt: new Date(),
+            }
+        }
+
+        await UserSettings.create({
+            userId: user._id,
+
+            apps: appSettings,
+
+            preferences: {
+                theme: "system",
+                timezone: "UTC",
+                startOfWeek: "monday",
+            },
+        })
+
+        if (app === "missionControl") {
+
+            const questionsToInsert = defaultDailyReviewQuestions.map(q => ({
+                ...q,
+                userId: user._id,
+            }))
+
+            await DailyReviewQuestion.insertMany(questionsToInsert)
+        }
+
+        if (app === "fitness") {
+            await fitnessUserProfile.create({
+                userId: user._id,
+            })
+        }
 
         const token = jwt.sign(
             { userId: user._id },

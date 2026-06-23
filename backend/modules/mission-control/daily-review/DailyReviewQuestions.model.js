@@ -51,4 +51,4 @@ dailyReviewQuestionSchema.index(
   { unique: true }
 )
 
-export default mongoose.model("DailyReviewQuestion", dailyReviewQuestionSchema)
+export default mongoose.model("mc_DailyReviewQuestion", dailyReviewQuestionSchema)
