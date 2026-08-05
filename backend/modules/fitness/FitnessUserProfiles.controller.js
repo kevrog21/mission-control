@@ -4,10 +4,8 @@ export async function getUserFitnessProfileSettings(req, res) {
     try {
         
         const profile = await fitnessUserProfileSchema.findOne({
-        userId: req.userId,
+            userId: req.userId,
       })
-        console.log("userID:", req.userId )
-        console.log("profile", profile )
 
         if (!profile) {
             return res.status(404).json({message: "Fitness profile not found.",})
@@ -18,4 +16,36 @@ export async function getUserFitnessProfileSettings(req, res) {
         console.error(err)
         res.status(500).json({ message: "Failed to retrieve profile",})
     }
+}
+
+export async function postDailyROutineExercises(req, res) {
+
+    try {
+        const { exercises, mode } = req.body
+
+        const profile = await fitnessUserProfileSchema.findOne({
+            userId: req.userId,
+        })
+
+        if (!profile) {
+            return res.status(404).json({message: "Fitness profile not found.",})
+        }
+
+        profile.currentDailyRoutine = exercises
+        profile.challengeMode = mode
+
+        await profile.save()
+
+        return res.status(200).json({
+            message: "Routine updated successfully",
+            profile,
+        })
+
+        } catch (err) {
+            console.error(err)
+            return res.status(500).json({
+                message: "Failed to update exercise routine",
+            })
+    }
+
 }

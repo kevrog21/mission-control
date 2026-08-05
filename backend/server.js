@@ -8,6 +8,7 @@ import usersRouter from './modules/users/users.routes.js'
 import dailyReviewRouter from './modules/mission-control/daily-review/dailyReview.routes.js'
 
 import fitnessUserProfilesRouter from './modules/fitness/FitnessUserProfiles.routes.js'
+import dailyChallengeRouter from './modules/fitness/DailyChallenge.routes.js'
 import { authLimiter } from './middleware/rateLimiter.js'
 
 dotenv.config()
@@ -38,6 +39,7 @@ app.use("/api/auth", authLimiter, authRouter)
 app.use('/api', usersRouter)
 app.use("/api/daily-review", dailyReviewRouter)
 app.use("/api/fitness-user-profiles", fitnessUserProfilesRouter)
+app.use("/api/daily-challenge", dailyChallengeRouter)
 
 app.get("/api/health", (req, res) => {
     res.json({

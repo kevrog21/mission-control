@@ -2,20 +2,21 @@ import mongoose from "mongoose"
 
 const routineExerciseSchema = new mongoose.Schema(
   {
-    exerciseId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "ExerciseIndex",
+    exerciseName: {
+      type: String,
       required: true,
     },
 
-    startingAmount: {
-      type: Number,
-      required: true,
-    },
+    // exerciseId: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "ExerciseIndex",
+    //   required: true,
+    // },
 
     progressionRate: {
       type: Number,
-      default: 0.5,
+      default: 1,
+      required: true,
     },
 
     unitType: {
@@ -69,6 +70,11 @@ const fitnessUserProfileSchema = new mongoose.Schema(
       type: Number,
       default: 0,
       min: 0,
+    },
+
+    challengeMode: {
+      type: String,
+      default: "",
     },
 
     currentDailyRoutine: [routineExerciseSchema],
