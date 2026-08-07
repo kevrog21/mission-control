@@ -1,6 +1,17 @@
 import fitnessUserProfileSchema from "./FitnessUserProfiles.model.js"
 import dailyChallengeSchema from "./DailyChallenge.model.js"
 
+function getDayDifference(date1, date2) {
+    const msPerDay = 1000 * 60 * 60 * 24
+
+    const start1 = new Date(date1)
+    const start2 = new Date(date2)
+
+    start1.setHours(0, 0, 0, 0)
+    start2.setHours(0, 0, 0, 0)
+
+    return Math.floor((start1 - start2) / msPerDay);
+}
 
 export async function postDailyChallenge(req, res) {
     try {
@@ -19,6 +30,26 @@ export async function postDailyChallenge(req, res) {
             return res.status(404).json({message: "Fitness profile not found.",})
         }
 
+        const today = new Date();
+
+        if (!profile.lastChallengeCompletedAt) {
+            profile.currentStreak = 1
+        }
+        else {
+
+            const difference = getDayDifference(
+                today,
+                profile.lastChallengeCompletedAt
+            )
+
+            if (difference === 1) {
+                profile.currentStreak += 1
+            }
+            else if (difference > 1) {
+                profile.currentStreak = 1
+            }
+        }
+
         const challenge = await dailyChallengeSchema.create({
             userId: req.userId,
             challengeDate,
@@ -26,12 +57,31 @@ export async function postDailyChallenge(req, res) {
             challengeMode,
             exercises,
             notes,
-            completedAt: new Date(),
+            completedAt: today,
         })
+
+        profile.currentLevel += 1
+
+        profile.highestLevelAchieved = Math.max(
+            profile.highestLevelAchieved, profile.currentLevel
+        )
+
+        profile.lastChallengeCompletedAt = today
+
+        profile.longestStreak = Math.max(
+            profile.longestStreak,
+            profile.currentStreak
+        )
+
+        profile.totalChallengesCompleted++
+
+        await profile.save()
+
 
         return res.status(201).json({
             message: "Challenge saved successfully.",
             challenge,
+            profile,
         })
 
 

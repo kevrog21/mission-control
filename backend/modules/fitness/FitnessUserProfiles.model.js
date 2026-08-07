@@ -55,7 +55,7 @@ const fitnessUserProfileSchema = new mongoose.Schema(
       min: 1,
     },
 
-     lastWorkoutCompletedAt: {
+     lastChallengeCompletedAt: {
       type: Date,
       default: null,
     },
@@ -70,6 +70,11 @@ const fitnessUserProfileSchema = new mongoose.Schema(
       type: Number,
       default: 0,
       min: 0,
+    },
+
+    totalChallengesCompleted: {
+        type: Number,
+        default: 0,
     },
 
     challengeMode: {
@@ -92,6 +97,11 @@ const fitnessUserProfileSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
+
+    timezone: {
+      type: String,
+      default: "UTC",
+    },
 
      profileVisibility: {
       type: String,
